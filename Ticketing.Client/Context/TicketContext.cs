@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Ticketing.Client.Model;
+using Ticketing.Client.Model.Configuration;
 using Ticketing.Helpers;
 
 namespace Ticketing.Client.Context
@@ -12,6 +13,7 @@ namespace Ticketing.Client.Context
     public sealed class TicketContext : DbContext
     {
         DbSet<Ticket> Tickets { get; set; }
+        DbSet<Note> Notes { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionBuilder
@@ -26,28 +28,8 @@ namespace Ticketing.Client.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var ticketModel = modelBuilder.Entity<Ticket>();
-
-            ticketModel
-                .HasKey(t => t.Id); // non è necessario se si rispettano le convenzioni
-            
-            ticketModel
-                .Property(t => t.Title)
-                .HasMaxLength(100)
-                .IsRequired();
-
-            ticketModel
-                .Property(t => t.Description)
-                .HasMaxLength(500);
-
-            ticketModel
-                .Property(t => t.Category)
-                .IsRequired();
-
-            ticketModel
-                .Property(t => t.Requestor)
-                .HasMaxLength(50)
-                .IsRequired();
+            modelBuilder.ApplyConfiguration<Ticket>(new TicketConfiguration());
+            modelBuilder.ApplyConfiguration<Note>(new NoteConfiguration());
         }
     }
 }
