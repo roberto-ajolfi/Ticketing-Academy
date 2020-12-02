@@ -26,6 +26,7 @@ namespace Ticketing.Client
                         break;
                     case "a":
                         // ADD
+                        // codice per recuperare i dati di un ticket ...
                         Ticket ticket = new Ticket();
                         ticket.Title = GetData("Titolo");
                         ticket.Description = GetData("Descrizione");
@@ -34,19 +35,57 @@ namespace Ticketing.Client
                         ticket.Requestor = "Roberto Ajolfi";
                         ticket.State = "New";
                         ticket.IssueDate = DateTime.Now;
-                        // codice per recuperare i dati di un ticket ...
+                        
                         var result = dataService.Add(ticket);
                         Console.WriteLine("Operation " + ( result ? "Completed" : "Failed!" ));
                         break;
+                    case "n":
+                        // ADD NOTE
+                        var ticketId = GetData("Ticket ID");
+                        int.TryParse(ticketId, out int tId);
+                        var comments = GetData("Commento");
+                        Note newNote = new Note { 
+                            TicketId = tId,
+                            Comments = comments
+                        };
+
+                        var noteResult = dataService.AddNote(newNote);
+                        Console.WriteLine("Operation " + (noteResult ? "Completed" : "Failed!"));
+                        break;
                     case "l":
                         // LIST
-                        Console.WriteLine("-- TICKET LIST --");
-                        foreach (var t in dataService.List())
+                        Console.WriteLine("-- TICKET LIST (EAGER) --");
+                        foreach (var t in dataService.ListEager())
+                        {
                             Console.WriteLine($"[{t.Id}] {t.Title}");
+                            foreach(var n in t.Notes)
+                                Console.WriteLine($"\t{n.Comments}");
+                        }
                         Console.WriteLine("-----------------");
+                        break;
+                    case "x":
+                        var ticketId2 = GetData("Ticket ID");
+                        int.TryParse(ticketId2, out int tId2);
+                        var ticket2 = dataService.GetTicketByIDViaSTP(tId2);
+                        Console.WriteLine(ticket2 != null ? ticket2.Description : "niente ...");
+                        break;
+                    case "z":
+                        dataService.ListLazy();
                         break;
                     case "e":
                         // EDIT
+                        var ticketId3 = GetData("Ticket ID");
+                        int.TryParse(ticketId3, out int tId3);
+                        var ticket3 = dataService.GetTicketById(tId3);
+
+                        ticket3.Title = GetData("Title", ticket3.Title);
+                        ticket3.Description = GetData("Descrizione", ticket3.Description);
+                        ticket3.Category = GetData("Categoria", ticket3.Category);
+                        ticket3.Priority = GetData("Priorità", ticket3.Priority);
+                        ticket3.State = GetData("Stato", ticket3.State);
+
+                        var editResult = dataService.Edit(ticket3);
+                        Console.WriteLine("Operation " + (editResult ? "Completed" : "Failed!"));
                         break;
                     case "d":
                         // DELETE
@@ -69,6 +108,13 @@ namespace Ticketing.Client
             Console.Write(message + ": ");
             var value = Console.ReadLine();
             return value;
+        }
+
+        private static string GetData(string message, string initialValue)
+        {
+            Console.Write(message + $" ({initialValue}): ");
+            var value = Console.ReadLine();
+            return string.IsNullOrEmpty(value) ? initialValue : value;
         }
     }
 }

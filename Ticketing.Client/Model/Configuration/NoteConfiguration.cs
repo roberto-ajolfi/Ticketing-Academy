@@ -18,9 +18,14 @@ namespace Ticketing.Client.Model.Configuration
                 .HasMaxLength(1000)
                 .IsRequired();
 
-            //builder
-            //    .HasOne(n => n.Ticket)
-            //    .WithMany(t => t.Notes);
+            builder
+                .HasOne(n => n.Ticket)
+                .WithMany(t => t.Notes)
+                .HasConstraintName("FK_Ticket_Notes");
+
+            builder
+                .Property(n => n.RowVersion)
+                .IsRowVersion();
         }
     }
 }
