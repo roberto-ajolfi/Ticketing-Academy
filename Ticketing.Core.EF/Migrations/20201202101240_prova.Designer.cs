@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Ticketing.Client.Context;
+using Ticketing.Core.EF.Context;
 
 namespace Ticketing.Client.Migrations
 {
     [DbContext(typeof(TicketContext))]
-    [Migration("20201201133432_NotesAdded")]
-    partial class NotesAdded
+    [Migration("20201202101240_prova")]
+    partial class prova
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

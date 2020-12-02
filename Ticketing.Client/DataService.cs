@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ticketing.Client.Context;
-using Ticketing.Client.Model;
+using Ticketing.Core.Model;
+using Ticketing.Core.Repository;
 
 namespace Ticketing.Client
 {
@@ -13,6 +13,8 @@ namespace Ticketing.Client
         public void ListLazy()
         {
             using var ctx = new TicketContext();
+
+            ITicketRepository repo = ...; 
 
             Console.WriteLine("-- TICKET LIST (LAZY) --");
             foreach (var t in ctx.Tickets)

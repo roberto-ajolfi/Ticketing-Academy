@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ticketing.Client.Model
+namespace Ticketing.Core.Model
 {
     public class Ticket
     {

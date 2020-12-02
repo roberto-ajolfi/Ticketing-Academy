@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Client", "Ticketing.Client\Ticketing.Client.csproj", "{32C2B23C-EAC7-4D74-80AD-D4C728A19F25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketing.Client", "Ticketing.Client\Ticketing.Client.csproj", "{32C2B23C-EAC7-4D74-80AD-D4C728A19F25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Helpers", "Ticketing.Helpers\Ticketing.Helpers.csproj", "{92FF96C9-EF1A-468B-A69D-E31D3AE00858}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketing.Helpers", "Ticketing.Helpers\Ticketing.Helpers.csproj", "{92FF96C9-EF1A-468B-A69D-E31D3AE00858}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Core", "Ticketing.Core\Ticketing.Core.csproj", "{C61CD208-8B3E-4CFD-8962-BA497DDD3F83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Core.EF", "Ticketing.Core.EF\Ticketing.Core.EF.csproj", "{780905C8-A662-4EC4-A0DA-E0255BABFA4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{92FF96C9-EF1A-468B-A69D-E31D3AE00858}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92FF96C9-EF1A-468B-A69D-E31D3AE00858}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92FF96C9-EF1A-468B-A69D-E31D3AE00858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C61CD208-8B3E-4CFD-8962-BA497DDD3F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C61CD208-8B3E-4CFD-8962-BA497DDD3F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C61CD208-8B3E-4CFD-8962-BA497DDD3F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C61CD208-8B3E-4CFD-8962-BA497DDD3F83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{780905C8-A662-4EC4-A0DA-E0255BABFA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{780905C8-A662-4EC4-A0DA-E0255BABFA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{780905C8-A662-4EC4-A0DA-E0255BABFA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{780905C8-A662-4EC4-A0DA-E0255BABFA4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
