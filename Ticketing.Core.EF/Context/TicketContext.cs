@@ -24,7 +24,7 @@ namespace Ticketing.Core.EF.Context
             // OPPURE
             //string connString = Config.GetSection("ConnectionStrings")["TicketDb"];
 
-            optionBuilder.UseLazyLoadingProxies();
+            //optionBuilder.UseLazyLoadingProxies();
             optionBuilder.UseSqlServer(connString);
         }
 

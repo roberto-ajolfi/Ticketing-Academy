@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,35 @@ namespace Ticketing.Core.EF.Repository
     {
         public bool Add(Ticket item)
         {
-            throw new NotImplementedException();
+            using (var _ctx = new TicketContext())
+            {
+                if (item == null)
+                    return false;
+
+                _ctx.Tickets.Add(item);
+                _ctx.SaveChanges();
+
+                return true;
+            }
         }
 
         public bool DeleteById(int id)
         {
-            throw new NotImplementedException();
+            using (var _ctx = new TicketContext())
+            {
+                if (id <= 0)
+                    return false;
+
+                var ticket = _ctx.Tickets.Find(id);
+
+                if (ticket != null)
+                {
+                    _ctx.Tickets.Remove(ticket);
+                    _ctx.SaveChanges();
+                }
+
+                return true;
+            }
         }
 
         public IEnumerable<Ticket> Get(Func<Ticket, bool> filter = null)
@@ -26,25 +50,57 @@ namespace Ticketing.Core.EF.Repository
             {
                 if (filter != null)
                     return _ctx.Tickets
-                        .Where(filter);
+                        .Include(t => t.Notes)
+                        .Where(filter).ToList();
 
-                return _ctx.Tickets;
+                return _ctx.Tickets
+                    .Include(t => t.Notes)
+                    .ToList();
             }
         }
 
         public Ticket GetByID(int id)
         {
-            throw new NotImplementedException();
+            using (var _ctx = new TicketContext())
+            {
+                if (id <= 0)
+                    return null;
+
+                return _ctx.Tickets
+                    .Include(t => t.Notes)
+                    .Where(t => t.Id == id)
+                    .SingleOrDefault();
+
+            }
         }
 
         public Ticket GetTicketByTitle(string title)
         {
-            throw new NotImplementedException();
+            using (var _ctx = new TicketContext())
+            {
+                return _ctx.Tickets
+                    .Include(t => t.Notes)
+                    .Where(t => t.Title == title)
+                    .SingleOrDefault();
+            }
         }
 
         public bool Update(Ticket item)
         {
-            throw new NotImplementedException();
+            using (var _ctx = new TicketContext())
+            {
+                try
+                {
+                    _ctx.Entry<Ticket>(item).State = EntityState.Modified;
+                    _ctx.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    throw ex;
+                }
+
+                return true;
+            }
         }
     }
 }

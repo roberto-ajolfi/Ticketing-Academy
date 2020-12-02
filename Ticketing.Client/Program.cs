@@ -21,6 +21,12 @@ namespace Ticketing.Client
 
                 switch(command)
                 {
+                    case "h":
+                        Console.WriteLine("Help");
+                        Console.WriteLine("q: quit | a: add ticket");
+                        Console.WriteLine("n: add note | l: list ticket");
+                        Console.WriteLine("e: edit ticket");
+                        break;
                     case "q":
                         quit = true;
                         break;
@@ -55,22 +61,13 @@ namespace Ticketing.Client
                     case "l":
                         // LIST
                         Console.WriteLine("-- TICKET LIST (EAGER) --");
-                        foreach (var t in dataService.ListEager())
+                        foreach (var t in dataService.List())
                         {
                             Console.WriteLine($"[{t.Id}] {t.Title}");
                             foreach(var n in t.Notes)
                                 Console.WriteLine($"\t{n.Comments}");
                         }
                         Console.WriteLine("-----------------");
-                        break;
-                    case "x":
-                        var ticketId2 = GetData("Ticket ID");
-                        int.TryParse(ticketId2, out int tId2);
-                        var ticket2 = dataService.GetTicketByIDViaSTP(tId2);
-                        Console.WriteLine(ticket2 != null ? ticket2.Description : "niente ...");
-                        break;
-                    case "z":
-                        dataService.ListLazy();
                         break;
                     case "e":
                         // EDIT

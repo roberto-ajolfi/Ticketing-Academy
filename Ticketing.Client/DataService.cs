@@ -1,8 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ticketing.Core.EF.Repository;
 using Ticketing.Core.Model;
 using Ticketing.Core.Repository;
 
@@ -10,46 +9,43 @@ namespace Ticketing.Client
 {
     public class DataService
     {
-        public void ListLazy()
+        #region Temp ... waiting for DI
+
+        private ITicketRepository GetTicketRepository()
         {
-            using var ctx = new TicketContext();
-
-            ITicketRepository repo = ...; 
-
-            Console.WriteLine("-- TICKET LIST (LAZY) --");
-            foreach (var t in ctx.Tickets)
-            {
-                Console.WriteLine($"[{t.Id}] {t.Title}");
-                foreach (var n in t.Notes)
-                    Console.WriteLine($"\t{n.Comments}");
-            }
-            Console.WriteLine("-----------------");
+            return new Ticketing.Core.EF.Repository.EFTicketRepository();
         }
 
-        public List<Ticket> ListEager()
+        private INoteRepository GetNoteRepository()
         {
-            using var ctx = new TicketContext();
+            return new Ticketing.Core.EF.Repository.EFNoteRepository();
+        }
 
-            return ctx.Tickets
-                .Include(t => t.Notes)
-                .ToList();
+        #endregion
+
+        public List<Ticket> List()
+        {
+            ITicketRepository repo = GetTicketRepository();
+
+            return repo.Get().ToList();
         }
 
         public bool Add(Ticket ticket)
         {
             try
             {
-                using var ctx = new TicketContext();
+                ITicketRepository repo = GetTicketRepository();
 
                 if (ticket != null)
                 {
-                    ctx.Tickets.Add(ticket);
-                    ctx.SaveChanges();
+                    var result = repo.Add(ticket);
+                    return result;
                 }
                 else
+                {
                     Console.WriteLine("Ticket non può essere nullo.");
-
-                return true;
+                    return true;
+                }
             } catch(Exception ex)
             {
                 Console.WriteLine("Errore: " + ex.Message);
@@ -61,21 +57,11 @@ namespace Ticketing.Client
         {
             try
             {
-                using var ctx = new TicketContext();
+                INoteRepository repo = GetNoteRepository();
 
                 if (newNote != null)
                 {
-                    var ticket = ctx.Tickets.Find(newNote.TicketId);
-                    if (ticket != null)
-                    {
-                        ticket.Notes.Add(newNote);
-                        ctx.SaveChanges();
-                    }
-
-                    // OPPURE
-                    //newNote.Ticket = ticket;
-                    //ctx.Notes.Add(newNote);
-                    //ctx.SaveChanges();
+                    repo.Add(newNote);
                 }
                 else
                     Console.WriteLine("Note non può essere nullo.");
@@ -89,56 +75,36 @@ namespace Ticketing.Client
             }
         }
 
-        public Ticket GetTicketByIDViaSTP(int id)
-        {
-            using var ctx = new TicketContext();
-
-            SqlParameter idParam = new SqlParameter("@id", id);
-
-            var result = ctx.Tickets.FromSqlRaw("exec stpGetTicketById @id", idParam).AsEnumerable();
-
-            return result.FirstOrDefault();
-        }
-
         public Ticket GetTicketById(int id)
         {
-            using var ctx = new TicketContext();
+            ITicketRepository repo = GetTicketRepository();
 
             if (id > 0)
-                return ctx.Tickets.Find(id);
+                return repo.GetByID(id);
 
             return null;
         }
 
         public bool Edit(Ticket ticket)
         {
-            using var ctx = new TicketContext();
-            bool saved = false;
+            try { 
+                ITicketRepository repo = GetTicketRepository();
 
-            do
-            {
-                try
-                {
-                    if (ticket == null)
-                        return false;
+                if (ticket == null)
+                    return false;
 
-                    Console.WriteLine("Smandrappa il Ticket e poi premi enter ...");
-                    Console.ReadKey();
+                Console.WriteLine("Smandrappa il Ticket e poi premi enter ...");
+                Console.ReadKey();
 
-                    ctx.Entry<Ticket>(ticket).State = EntityState.Modified;
-                    ctx.SaveChanges();
-
-                    saved = true;
+                repo.Update(ticket);
                     
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    // ...
-                    Console.WriteLine("Error: " + ex.Message);
-                    //return false;
-                    saved = false;
-                }
-            } while (!saved);
+            }
+            catch (Exception ex)
+            {
+                // ...
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
+            }
 
             return true;
         }
