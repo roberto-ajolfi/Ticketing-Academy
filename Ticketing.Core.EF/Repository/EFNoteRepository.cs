@@ -81,8 +81,25 @@ namespace Ticketing.Core.EF.Repository
         {
             using (var _ctx = new TicketContext())
             {
-                _ctx.Entry<Note>(item).State = EntityState.Modified;
-                _ctx.SaveChanges();
+                bool saved = false;
+                do
+                {
+                    try
+                    {
+                        _ctx.Entry<Note>(item).State = EntityState.Modified;
+                        _ctx.SaveChanges();
+
+                        saved = true;
+                    }
+                    catch (DbUpdateConcurrencyException ex)
+                    {
+                        foreach (var entity in ex.Entries)
+                        {
+                            var dbValues = entity.GetDatabaseValues();
+                            entity.OriginalValues.SetValues(dbValues);
+                        }
+                    }
+                } while (!saved);
 
                 return true;
             }
