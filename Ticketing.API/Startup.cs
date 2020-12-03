@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ticketing.Core.BL;
+using Ticketing.Core.EF.Repository;
+using Ticketing.Core.Mock.Repository;
+using Ticketing.Core.Repository;
 
 namespace Ticketing.API
 {
@@ -25,7 +29,17 @@ namespace Ticketing.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson( options => {
+                    options.SerializerSettings.ReferenceLoopHandling =
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
+
+            // configurazione della DI (Injector)
+            services
+                .AddTransient<DataService>()
+                .AddTransient<ITicketRepository, MockTicketRepository>()
+                .AddTransient<INoteRepository, MockNoteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

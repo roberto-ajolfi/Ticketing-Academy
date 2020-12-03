@@ -1,6 +1,7 @@
 ﻿using System;
 using Ticketing.Core.Model;
 using Microsoft.Extensions.DependencyInjection;
+using Ticketing.Core.BL;
 
 namespace Ticketing.Client
 {
