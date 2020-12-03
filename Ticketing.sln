@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketing.Client", "Ticketi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketing.Helpers", "Ticketing.Helpers\Ticketing.Helpers.csproj", "{92FF96C9-EF1A-468B-A69D-E31D3AE00858}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Core", "Ticketing.Core\Ticketing.Core.csproj", "{C61CD208-8B3E-4CFD-8962-BA497DDD3F83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketing.Core", "Ticketing.Core\Ticketing.Core.csproj", "{C61CD208-8B3E-4CFD-8962-BA497DDD3F83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Core.EF", "Ticketing.Core.EF\Ticketing.Core.EF.csproj", "{780905C8-A662-4EC4-A0DA-E0255BABFA4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketing.Core.EF", "Ticketing.Core.EF\Ticketing.Core.EF.csproj", "{780905C8-A662-4EC4-A0DA-E0255BABFA4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Core.Mock", "Ticketing.Core.Mock\Ticketing.Core.Mock.csproj", "{1EB46E38-D52C-4DCC-AF95-AEBA94544626}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Core.ADONET", "Ticketing.Core.ADONET\Ticketing.Core.ADONET.csproj", "{68056290-09BB-477C-B04F-BB352CCE23D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{780905C8-A662-4EC4-A0DA-E0255BABFA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{780905C8-A662-4EC4-A0DA-E0255BABFA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{780905C8-A662-4EC4-A0DA-E0255BABFA4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EB46E38-D52C-4DCC-AF95-AEBA94544626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EB46E38-D52C-4DCC-AF95-AEBA94544626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EB46E38-D52C-4DCC-AF95-AEBA94544626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EB46E38-D52C-4DCC-AF95-AEBA94544626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68056290-09BB-477C-B04F-BB352CCE23D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68056290-09BB-477C-B04F-BB352CCE23D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68056290-09BB-477C-B04F-BB352CCE23D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68056290-09BB-477C-B04F-BB352CCE23D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

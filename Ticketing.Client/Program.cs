@@ -1,5 +1,6 @@
 ﻿using System;
 using Ticketing.Core.Model;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ticketing.Client
 {
@@ -64,8 +65,9 @@ namespace Ticketing.Client
                         foreach (var t in dataService.List())
                         {
                             Console.WriteLine($"[{t.Id}] {t.Title}");
-                            foreach(var n in t.Notes)
-                                Console.WriteLine($"\t{n.Comments}");
+                            if(t.Notes != null)
+                                foreach(var n in t.Notes)
+                                    Console.WriteLine($"\t{n.Comments}");
                         }
                         Console.WriteLine("-----------------");
                         break;

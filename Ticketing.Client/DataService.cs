@@ -9,16 +9,21 @@ namespace Ticketing.Client
 {
     public class DataService
     {
+
+
         #region Temp ... waiting for DI
 
         private ITicketRepository GetTicketRepository()
         {
-            return new Ticketing.Core.EF.Repository.EFTicketRepository();
+            return new Ticketing.Core.ADONET.Repository.ADONETTicketRepository();
+            //return new Ticketing.Core.EF.Repository.EFTicketRepository();
+            //return new Ticketing.Core.Mock.Repository.MockTicketRepository();
         }
 
         private INoteRepository GetNoteRepository()
         {
             return new Ticketing.Core.EF.Repository.EFNoteRepository();
+            //return new Ticketing.Core.Mock.Repository.MockNoteRepository();
         }
 
         #endregion

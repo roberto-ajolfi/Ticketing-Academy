@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ticketing.Core.ADONET\Ticketing.Core.ADONET.csproj" />
     <ProjectReference Include="..\Ticketing.Core.EF\Ticketing.Core.EF.csproj" />
+    <ProjectReference Include="..\Ticketing.Core.Mock\Ticketing.Core.Mock.csproj" />
     <ProjectReference Include="..\Ticketing.Core\Ticketing.Core.csproj" />
     <ProjectReference Include="..\Ticketing.Helpers\Ticketing.Helpers.csproj" />
   </ItemGroup>
