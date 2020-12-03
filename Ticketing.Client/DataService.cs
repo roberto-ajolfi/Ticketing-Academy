@@ -9,8 +9,6 @@ namespace Ticketing.Client
 {
     public class DataService
     {
-
-
         #region Temp ... waiting for DI
 
         private ITicketRepository GetTicketRepository()
