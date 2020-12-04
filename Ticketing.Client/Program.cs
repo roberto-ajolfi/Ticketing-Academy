@@ -9,7 +9,10 @@ namespace Ticketing.Client
     {
         static void Main(string[] args)
         {
-            DataService dataService = new DataService();
+            var serviceProvider = DIConfig.ConfigDI();
+            DataService dataService = serviceProvider
+                .GetService<DataService>();
+                //new DataService();
 
             Console.WriteLine("=== Ticket Management ===");
             bool quit = false;
